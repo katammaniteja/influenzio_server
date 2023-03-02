@@ -4,7 +4,6 @@ const router = express.Router();
 
 const Influencer = require("../models/userSchema");
 const About = require("./../models/aboutSchema");
-const crypto = require("crypto");
 
 router.post("/register", async (req, res) => {
   const { name, email, password, cpassword } = req.body;
