@@ -1,9 +1,7 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
-
 const Influencer = require("../models/userSchema");
-const About = require("./../models/aboutSchema");
 
 router.post("/register", async (req, res) => {
   const { name, email, password, cpassword } = req.body;
@@ -18,11 +16,8 @@ router.post("/register", async (req, res) => {
       if (userExist) {
         res.status(422).json({ error: "Email already taken" });
       } else {
-        const influencer = new Influencer({ email, password });
+        const influencer = new Influencer({ email, name, password });
         await influencer.save();
-
-        const about = new About({ email, name });
-        await about.save();
         res.status(201).json({ message: "Registration Succcessful" });
       }
     }
@@ -46,8 +41,7 @@ router.post("/login", async (req, res) => {
           res.status(422).json({ error: "Invalid password" });
         } else {
           const token = await influencer.generateAuthToken();
-          const about = await About.findOne({ email: email });
-          res.status(200).json({ jwttoken: token, userId: about._id });
+          res.status(200).json({ jwttoken: token, userId: influencer._id });
         }
       }
     }

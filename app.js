@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/public", express.static("public"));
 app.use(express.json());
 app.use(require("./routers/auth"));
-app.use(require("./routers/about"));
 app.use(require("./routers/influencers"));
 app.use(require("./routers/chat"));
 

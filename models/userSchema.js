@@ -2,31 +2,25 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const userSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    verified: {
-      type: Boolean,
-      default: false,
-    },
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  contact: String,
+  location: String,
+  profilePic: {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
   },
-  { timestamps: true }
-);
+  twitter: String,
+  youtube: String,
+  linkedin: String,
+  tokens: [
+    {
+      token: String,
+    },
+  ],
+});
 
 // Hashing the password before create a new influencer
 userSchema.pre("save", async function (next) {
