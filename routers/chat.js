@@ -14,14 +14,18 @@ router.post("/chat", async (req, res) => {
 });
 
 router.post("/getChat", async (req, res) => {
-  const { sender, receiver } = req.body;
-  const messages = await Message.find({
-    $or: [
-      { sender: sender, receiver: receiver },
-      { receiver: sender, sender: receiver },
-    ],
-  });
-  res.status(201).json(messages);
+  try {
+    const { sender, receiver } = req.body;
+    const messages = await Message.find({
+      $or: [
+        { sender: sender, receiver: receiver },
+        { receiver: sender, sender: receiver },
+      ],
+    });
+    res.status(201).json(messages);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;

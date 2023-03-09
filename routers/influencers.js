@@ -38,4 +38,35 @@ router.get("/influencers", async (req, res) => {
   }
 });
 
+router.post("/work-experience", authenticate, async (req, res) => {
+  try {
+    const id = req.id;
+    const influencer = await Influencer.findById(id);
+    influencer.work_experience.push(req.body);
+    await influencer.save();
+    res.status(200).json({ message: "Added Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/work-experience", authenticate, async (req, res) => {
+  try {
+    // console.log(req);
+    const user_id = req.id;
+    const we_id = req.body.id;
+    // console.log(req.we_id);
+    console.log(user_id, we_id);
+    const influencer = await Influencer.findById(user_id);
+    const work_experience = influencer.work_experience.filter(
+      (item) => item._id !== we_id
+    );
+    influencer.work_experience = work_experience;
+    await influencer.save();
+    res.status(200).json({ message: "Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

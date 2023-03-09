@@ -15,6 +15,22 @@ const userSchema = new mongoose.Schema({
   twitter: String,
   youtube: String,
   linkedin: String,
+  work_experience: [
+    {
+      type: new mongoose.Schema(
+        {
+          company: String,
+          role: String,
+          start_month: String,
+          start_year: String,
+          end_month: String,
+          end_year: String,
+          description: String,
+        },
+        { timestamps: true }
+      ),
+    },
+  ],
   tokens: [
     {
       token: String,
