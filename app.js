@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(require("./routers/auth"));
 app.use(require("./routers/influencers"));
 app.use(require("./routers/chat"));
+app.use(require("./routers/sendMail"));
 
 server.listen(5000);
 
