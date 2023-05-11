@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require("../middleware/authenticate");
 const Influencer = require("../models/userSchema");
+var mongoose = require('mongoose');
+
 
 router.get("/about", async (req, res) => {
   try {
@@ -50,16 +52,13 @@ router.post("/work-experience", authenticate, async (req, res) => {
   }
 });
 
-router.delete("/work-experience", authenticate, async (req, res) => {
+router.delete("/work-experience", async (req, res) => {
   try {
-    // console.log(req);
-    const user_id = req.id;
-    const we_id = req.body.id;
-    // console.log(req.we_id);
-    console.log(user_id, we_id);
+    const user_id = req.query.id;
+    const we_id = req.query.we_id;
     const influencer = await Influencer.findById(user_id);
     const work_experience = influencer.work_experience.filter(
-      (item) => item._id !== we_id
+      (item) => item._id.toString() !== we_id
     );
     influencer.work_experience = work_experience;
     await influencer.save();
