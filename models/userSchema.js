@@ -22,10 +22,8 @@ const userSchema = new mongoose.Schema({
         {
           company: String,
           role: String,
-          start_month: String,
-          start_year: String,
-          end_month: String,
-          end_year: String,
+          start_date: String,
+          end_date: String,
           description: String,
         },
         { timestamps: true }

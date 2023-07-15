@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require("../middleware/authenticate");
 const Influencer = require("../models/userSchema");
-var mongoose = require('mongoose');
-
 
 router.get("/about", async (req, res) => {
   try {
@@ -44,6 +42,7 @@ router.post("/work-experience", authenticate, async (req, res) => {
   try {
     const id = req.id;
     const influencer = await Influencer.findById(id);
+    console.log(req.body);
     influencer.work_experience.push(req.body);
     await influencer.save();
     res.status(200).json({ message: "Added Successfully" });
